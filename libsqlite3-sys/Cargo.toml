@@ -1,5 +1,5 @@
 [package]
-name = "libsqlite3-sys"
+name = "libsqlite3-sys-ic"
 version = "0.25.0"
 authors = ["The rusqlite developers"]
 edition = "2018"

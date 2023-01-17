@@ -1,11 +1,12 @@
 [package]
-name = "rusqlite"
+name = "rusqlite-ic"
 # Note: Update version in README.md when you change this.
 version = "0.28.0"
 authors = ["The rusqlite developers"]
 edition = "2018"
 description = "Ergonomic wrapper for SQLite"
-repository = "https://github.com/rusqlite/rusqlite"
+repository = "https://github.com/froghub-io/rusqlite.git"
+homepage = "https://github.com/rusqlite/rusqlite"
 documentation = "http://docs.rs/rusqlite/"
 readme = "README.md"
 keywords = ["sqlite", "database", "ffi"]
@@ -136,6 +137,7 @@ wasm-bindgen-test = "0.3"
 bencher = "0.1"
 
 [dependencies.libsqlite3-sys]
+package = "libsqlite3-sys-ic"
 path = "libsqlite3-sys"
 version = "0.25.0"
 
