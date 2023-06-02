@@ -114,7 +114,7 @@ mod build_bundled {
             .flag("-DSQLITE_ENABLE_DBSTAT_VTAB")
             .flag("-DSQLITE_ENABLE_FTS3")
             .flag("-DSQLITE_ENABLE_FTS3_PARENTHESIS")
-            .flag("-DSQLITE_ENABLE_FTS5")
+            .flag("-DSQLITE_ENABLE_FTS5=1")
             .flag("-DSQLITE_ENABLE_JSON1")
             .flag("-DSQLITE_ENABLE_LOAD_EXTENSION=1")
             .flag("-DSQLITE_ENABLE_MEMORY_MANAGEMENT")
