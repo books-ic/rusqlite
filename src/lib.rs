@@ -79,7 +79,7 @@ pub use crate::error::Error;
 pub use crate::ffi::ErrorCode;
 #[cfg(feature = "load_extension")]
 pub use crate::load_extension_guard::LoadExtensionGuard;
-pub use crate::params::{params_from_iter, Params, ParamsFromIter};
+pub use crate::params::{named_params_from_iter, params_from_iter, Params, ParamsFromIter};
 pub use crate::row::{AndThenRows, Map, MappedRows, Row, RowIndex, Rows};
 pub use crate::statement::{Statement, StatementStatus};
 pub use crate::transaction::{DropBehavior, Savepoint, Transaction, TransactionBehavior};

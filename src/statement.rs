@@ -20,6 +20,10 @@ pub struct Statement<'conn> {
     pub(crate) stmt: RawStatement,
 }
 
+pub trait NamedParamsItem {}
+
+// impl (&str, & ToSql) for dyn NamedParamsItem {}
+
 impl Statement<'_> {
     /// Execute the prepared statement.
     ///
@@ -604,6 +608,59 @@ impl Statement<'_> {
         let count = self.parameter_count();
         if count != n {
             Err(Error::InvalidParameterCount(n, count))
+        } else {
+            Ok(())
+        }
+    }
+
+    #[inline]
+    pub(crate) fn bind_parameters_named_v2<'a, T: 'a + ?Sized, I>(
+        &mut self,
+        params: I,
+    ) -> Result<()>
+    where
+        T: ToSql,
+        I: IntoIterator<Item = (&'a str, &'a T)>,
+    {
+        let expected = self.stmt.bind_parameter_count();
+        let mut index = 0;
+        for p in params.into_iter() {
+            index += 1;
+            if index > expected {
+                break;
+            }
+            if let Some(i) = self.parameter_index(p.0)? {
+                self.bind_parameter(p.1, i)?;
+            } else {
+                return Err(Error::InvalidParameterName(p.0.into()));
+            }
+        }
+        if index != expected {
+            Err(Error::InvalidParameterCount(index, expected))
+        } else {
+            Ok(())
+        }
+    }
+    #[inline]
+    pub(crate) fn bind_parameters_named_v3<T: ToSql, I>(&mut self, params: I) -> Result<()>
+    where
+        I: IntoIterator<Item = (String, T)>,
+    {
+        let expected = self.stmt.bind_parameter_count();
+        let mut index = 0;
+        for p in params.into_iter() {
+            index += 1;
+            if index > expected {
+                break;
+            }
+            if let Some(i) = self.parameter_index(&p.0)? {
+                self.bind_parameter(&p.1, i)?;
+            } else {
+                return Err(Error::InvalidParameterName(p.0.into()));
+            }
+        }
+        if index != expected {
+            Err(Error::InvalidParameterCount(index, expected))
         } else {
             Ok(())
         }

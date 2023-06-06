@@ -456,3 +456,26 @@ where
         stmt.bind_parameters(self.0)
     }
 }
+
+#[derive(Clone, Debug)]
+pub struct NamedParamsFromIter<I>(I);
+
+///
+#[inline]
+pub fn named_params_from_iter<T: ToSql, I>(iter: I) -> NamedParamsFromIter<I>
+where
+    I: IntoIterator<Item = (String, T)>,
+{
+    NamedParamsFromIter(iter)
+}
+
+impl<T: ToSql, I> Sealed for NamedParamsFromIter<I> where I: IntoIterator<Item = (String, T)> {}
+
+impl<T: ToSql, I> Params for NamedParamsFromIter<I>
+where
+    I: IntoIterator<Item = (String, T)>,
+{
+    fn __bind_in(self, stmt: &mut Statement<'_>) -> Result<()> {
+        stmt.bind_parameters_named_v3(self.0)
+    }
+}
