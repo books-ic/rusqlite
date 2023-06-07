@@ -118,6 +118,7 @@ mod build_bundled {
             .flag("-DSQLITE_ENABLE_JSON1")
             .flag("-DSQLITE_ENABLE_LOAD_EXTENSION=1")
             .flag("-DSQLITE_ENABLE_MEMORY_MANAGEMENT")
+            .flag("-DSQLITE_MAX_VARIABLE_NUMBER=20000000")
             .flag("-DSQLITE_ENABLE_RTREE")
             .flag("-DSQLITE_ENABLE_STAT2")
             .flag("-DSQLITE_ENABLE_STAT4")
