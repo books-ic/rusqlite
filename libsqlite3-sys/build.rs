@@ -95,6 +95,7 @@ mod build_bundled {
             let header = HeaderLocation::FromPath(format!("{}/sqlite3.h", lib_name));
             bindings::write_to_out_dir(header, out_path);
         }
+
         #[cfg(not(feature = "buildtime_bindgen"))]
         {
             use std::fs;
@@ -506,13 +507,15 @@ mod bindings {
     use std::path::Path;
 
     static PREBUILT_BINDGEN_PATHS: &[&str] = &[
-        "bindgen-bindings/bindgen_3.6.8.rs",
-        #[cfg(feature = "min_sqlite_version_3_6_23")]
-        "bindgen-bindings/bindgen_3.6.23.rs",
-        #[cfg(feature = "min_sqlite_version_3_7_7")]
-        "bindgen-bindings/bindgen_3.7.7.rs",
-        #[cfg(feature = "min_sqlite_version_3_7_16")]
-        "bindgen-bindings/bindgen_3.7.16.rs",
+        // "bindgen-bindings/bindgen_3.6.8.rs",
+        // #[cfg(feature = "min_sqlite_version_3_6_23")]
+        // "bindgen-bindings/bindgen_3.6.23.rs",
+        // #[cfg(feature = "min_sqlite_version_3_7_7")]
+        // "bindgen-bindings/bindgen_3.7.7.rs",
+        // #[cfg(feature = "min_sqlite_version_3_7_16")]
+        // "bindgen-bindings/bindgen_3.7.16.rs",
+        #[cfg(feature = "min_sqlite_version_3_42_0")]
+        "bindgen-bindings/bindgen_3.42.0.rs",
     ];
 
     pub fn write_to_out_dir(_header: HeaderLocation, out_path: &Path) {
